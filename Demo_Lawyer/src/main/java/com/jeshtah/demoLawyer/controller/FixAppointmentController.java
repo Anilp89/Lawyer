@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,12 +32,14 @@ public class FixAppointmentController {
 	@Autowired
 	private com.jeshtah.demoLawyer.repository.CaseRegistrationRepository caseRegistrationRepository; 
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value ="/fixAppointment", method = RequestMethod.GET)
 	public ModelAndView fixAppointment() {
 		Iterable<ClientDetails> clientDetails = clientDetailsRepository.findAllByOrderByIdDesc();
 		return new ModelAndView("fixAppointment","clients",clientDetails);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value ="/fixAppointment", method = RequestMethod.POST)
 	public ModelAndView fixAppointmentRegistartion(HttpServletRequest req) {
 		String clientId = req.getParameter("clientname");

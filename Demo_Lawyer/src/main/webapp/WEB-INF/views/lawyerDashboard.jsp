@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
-
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <head>
   <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="https://d2kpmywmv9hmp2.cloudfront.net/css/datatables-1.10.16.min.css"/>
@@ -67,12 +67,14 @@
               <p>Cases Registration</p>
             </a>
           </li>
+          <security:authorize access="hasRole('ADMIN')">
           <li class="nav-item ">
             <a class="nav-link" href="./fixAppointment">
               <i class="material-icons">bubble_chart</i>
               <p>Client Appointments</p>
             </a>
           </li>
+          </security:authorize>
           <li class="nav-item ">
             <a class="nav-link" href="./setHearing">
               <i class="material-icons">library_books</i>
@@ -163,7 +165,7 @@
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">person</i>
+                  <i class="material-icons">person</i>${user.username}
                   <p class="d-lg-none d-md-block">
                     Account
                   </p>
@@ -172,7 +174,7 @@
                   <a class="dropdown-item" href="#">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Log out</a>
+                  <a class="dropdown-item" href="/logout">Log out</a>
                 </div>
               </li>
             </ul>
